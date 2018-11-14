@@ -16,7 +16,7 @@ void SAVE(string name)
     }
     else
     {
-
+        cout << "File Tidak Ditemukan Mau buat File baru ?" << endl;
     }
 }
 
@@ -30,7 +30,7 @@ void LOAD(string name)
     }
     else
     {
-
+        cout << "File Tidak Ditemukan Mau buat File baru ?" << endl;
     }
 }
 

@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1543215928 source:c:\users\asus\documents\github\dungeon\allin\main.cpp
+	<iostream>
+	<fstream>
+	<sstream>
+	<conio.h>
+	<windows.h>
+	<cstdlib>
+	<ctime>
+

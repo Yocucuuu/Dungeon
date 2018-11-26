@@ -38,6 +38,7 @@ for (int i=y;i<y+11;i++){
 }
 cout<<"*************\n"<<endl;
 
+
 cout<<"Px :"<<Px<<endl;
 cout<<"Py :"<<Py<<endl;
 cout<<"x  :"<<x<<endl;

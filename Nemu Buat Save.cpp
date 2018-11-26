@@ -42,6 +42,5 @@ int main()
     name = name + ".txt";
     SAVE(name);
     LOAD(name);
-
     return 0;
 }

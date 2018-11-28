@@ -355,16 +355,16 @@ void Viewrange()
             }
 
             //////////////////////////////
-             if (Ybendera[i]==Py){   // Y ==0
-                if (Xbendera[i]>Px){
-                    if (Xbendera[i]-Px<4){
-                        map_b[Ybendera[i]][Xbendera[i]]='B';
+             if (Yk[i]==Py){   // Y ==0
+                if (Xk[i]>Px){
+                    if (Xk[i]-Px<4){
+                        map_b[Yk[i]][Xk[i]]='K';
                     }else if (Xk[i]-Px>4){
                         map_b[Yk[i]][Xk[i]]=' ';
                     }
                 }else if (Xk[i]<Px){
                     if (Px-Xk[i]<4){
-                           map_b[Yk[i]][Xk[i]]='B';
+                           map_b[Yk[i]][Xk[i]]='K';
                     }else if (Px-Xk[i]>4){
                          map_b[Yk[i]][Xk[i]]=' ';
                     }
@@ -374,13 +374,13 @@ void Viewrange()
             }else if (Xk[i]==Px){  //X==0
                 if (Yk[i]>Py){
                     if (Yk[i]-Py<4){
-                        map_b[Yk[i]][Xk[i]]='B';
+                        map_b[Yk[i]][Xk[i]]='K';
                     }else if (Yk[i]-Py>4){
                         map_b[Yk[i]][Xk[i]]=' ';
                     }
                 }else if (Yk[i]<Py ){
                     if (Py-Yk[i]<4){
-                        map_b[Yk[i]][Xk[i]]='B';
+                        map_b[Yk[i]][Xk[i]]='K';
                     }else if (Py-Yk[i]>4){
                         map_b[Yk[i]][Xk[i]]=' ';
                     }
@@ -388,26 +388,26 @@ void Viewrange()
 
             }else if (Xk[i]>Px&&Yk[i]<Py){   // kuadron 1
                 if (Xk[i]-Px<4&&Py-Yk[i]<4){
-                    map_b[Yk[i]][Xk[i]]='B';
+                    map_b[Yk[i]][Xk[i]]='K';
                 }else {
                     map_b[Yk[i]][Xk[i]]=' ';
                 }
 
             }else if (Xk[i]>Px&&Yk[i]>Py){    //kuadron 4
                 if (Xk[i]-Px<4&&Yk[i]-Py<4){
-                    map_b[Yk[i]][Xk[i]]='B';
+                    map_b[Yk[i]][Xk[i]]='K';
                 }else {
                     map_b[Yk[i]][Xk[i]]=' ';
                 }
             }else if (Xk[i]<Px&&Yk[i]<Py){  // kuadron 2
                 if (Px-Xk[i]<4 && Py-Yk[i]<4 ){
-                    map_b[Yk[i]][Xk[i]]='B';
+                    map_b[Yk[i]][Xk[i]]='K';
                 }else {
                      map_b[Yk[i]][Xk[i]]=' ';
                 }
             }else if (Xk[i]<Px&&Yk[i]>Py){
                 if (Px-Xk[i]<4&&Yk[i]-Py<4){
-                    map_b[Yk[i]][Xk[i]]='B';
+                    map_b[Yk[i]][Xk[i]]='K';
                 }else {
                      map_b[Yk[i]][Xk[i]]=' ';
                 }
@@ -415,32 +415,32 @@ void Viewrange()
 
 
             //////////////////////////////////////////////////////
-             if (Ybendera[i]==Py){   // Y ==0
-                if (Xbendera[i]>Px){
-                    if (Xbendera[i]-Px<4){
-                        map_b[Ybendera[i]][Xbendera[i]]='B';
-                    }else if (Xbendera[i]-Px>4){
-                        map_b[Ym[i]][Xbendera[i]]=' ';
+             if (Ym[i]==Py){   // Y ==0
+                if (Xm[i]>Px){
+                    if (Xm[i]-Px<4){
+                        map_b[Ym[i]][Xm[i]]='M';
+                    }else if (Xm[i]-Px>4){
+                        map_b[Ym[i]][Xm[i]]=' ';
                     }
-                }else if (Xbendera[i]<Px){
-                    if (Px-Xbendera[i]<4){
-                           map_b[Ym[i]][Xbendera[i]]='B';
-                    }else if (Px-Xbendera[i]>4){
-                         map_b[Ym[i]][Xbendera[i]]=' ';
+                }else if (Xm[i]<Px){
+                    if (Px-Xm[i]<4){
+                           map_b[Ym[i]][Xm[i]]='M';
+                    }else if (Px-Xm[i]>4){
+                         map_b[Ym[i]][Xm[i]]=' ';
                     }
 
                 }
 
-            }else if (Xbendera[i]==Px){  //X==0
+            }else if (Xm[i]==Px){  //X==0
                 if (Ym[i]>Py){
                     if (Ym[i]-Py<4){
-                        map_b[Ym[i]][Xbendera[i]]='B';
+                        map_b[Ym[i]][Xm[i]]='M';
                     }else if (Ym[i]-Py>4){
                         map_b[Ym[i]][Xm[i]]=' ';
                     }
                 }else if (Ym[i]<Py ){
                     if (Py-Ym[i]<4){
-                        map_b[Ym[i]][Xm[i]]='B';
+                        map_b[Ym[i]][Xm[i]]='M';
                     }else if (Py-Ym[i]>4){
                         map_b[Ym[i]][Xm[i]]=' ';
                     }
@@ -448,26 +448,26 @@ void Viewrange()
 
             }else if (Xm[i]>Px&&Ym[i]<Py){   // kuadron 1
                 if (Xm[i]-Px<4&&Py-Ym[i]<4){
-                    map_b[Ym[i]][Xm[i]]='B';
+                    map_b[Ym[i]][Xm[i]]='M';
                 }else {
                     map_b[Ym[i]][Xm[i]]=' ';
                 }
 
             }else if (Xm[i]>Px&&Ym[i]>Py){    //kuadron 4
                 if (Xm[i]-Px<4&&Ym[i]-Py<4){
-                    map_b[Ym[i]][Xm[i]]='B';
+                    map_b[Ym[i]][Xm[i]]='M';
                 }else {
                     map_b[Ym[i]][Xm[i]]=' ';
                 }
             }else if (Xm[i]<Px&&Ym[i]<Py){  // kuadron 2
                 if (Px-Xm[i]<4 && Py-Ym[i]<4 ){
-                    map_b[Ym[i]][Xm[i]]='B';
+                    map_b[Ym[i]][Xm[i]]='M';
                 }else {
                      map_b[Ym[i]][Xm[i]]=' ';
                 }
             }else if (Xm[i]<Px&&Ym[i]>Py){
                 if (Px-Xm[i]<4&&Ym[i]-Py<4){
-                    map_b[Ym[i]][Xm[i]]='B';
+                    map_b[Ym[i]][Xm[i]]='M';
                 }else {
                      map_b[Ym[i]][Xm[i]]=' ';
                 }
@@ -525,11 +525,6 @@ map_b[Py][Px]='P';
         InitXmark();
         BatasView();
 
-        for(int i=0;i<3;i++){
-            map_b[Ym[i]][Xm[i]]='M';
-            map_b[Yk[i]][Xk[i]]='K';
-//            map_b[Ybendera[i]][Xbendera[i]]='B';
-        }
 
         Viewrange();
 

@@ -18,12 +18,15 @@ int Xm[3];
 int Yk[3];
 int Xk[3];
 
+int Ybendera[3];
+int Xbendera[3];
+
 int Ysave;
 int Xsave;
 vector<int>Ymark;
 vector<int>Xmark;
 vector<bool>Xflag;
-struct iventory{
+struct inventory{
 
     int Gold=0;
     int Zen=0;
@@ -37,7 +40,7 @@ struct iventory{
 
 };
 
-iventory player;
+inventory player;
 
 void InitAwal()
 {
@@ -93,20 +96,20 @@ void CetakMap()
         }cout<<endl;
 
 }
-cout<<"------------"<<endl;
 
-cout<<endl;
+
     cout<<" Y : "<<y<<endl;
     cout<<" Y+11 :"<< y+11<<endl;
     cout<<" X : "<<x<<endl;
     cout<<" X+11 :"<< x+11<<endl;
     cout<<" Py :" <<Py<<endl;
     cout<<" Px :" <<Px<<endl;
-    cout<<endl;
 
     for (int i=0;i<3;i++){
         cout<<Ym[i]<<" "<<Xm[i]<<endl;
         cout<<Yk[i]<<" "<<Xk[i]<<endl;
+        cout<<Ybendera[i]<<" "<<Xbendera[i]<<endl;
+        cout<<endl;
     }
 
 
@@ -290,16 +293,219 @@ void InitXmark()
         }
 }
 
+void Viewrange()
+{
+    for (int i=0;i<3;i++){
+            if (Ybendera[i]==Py){   // Y ==0
+                if (Xbendera[i]>Px){
+                    if (Xbendera[i]-Px<4){
+                        map_b[Ybendera[i]][Xbendera[i]]='B';
+                    }else if (Xbendera[i]-Px>4){
+                        map_b[Ybendera[i]][Xbendera[i]]=' ';
+                    }
+                }else if (Xbendera[i]<Px){
+                    if (Px-Xbendera[i]<4){
+                           map_b[Ybendera[i]][Xbendera[i]]='B';
+                    }else if (Px-Xbendera[i]>4){
+                         map_b[Ybendera[i]][Xbendera[i]]=' ';
+                    }
+
+                }
+
+            }else if (Xbendera[i]==Px){  //X==0
+                if (Ybendera[i]>Py){
+                    if (Ybendera[i]-Py<4){
+                        map_b[Ybendera[i]][Xbendera[i]]='B';
+                    }else if (Ybendera[i]-Py>4){
+                        map_b[Ybendera[i]][Xbendera[i]]=' ';
+                    }
+                }else if (Ybendera[i]<Py ){
+                    if (Py-Ybendera[i]<4){
+                        map_b[Ybendera[i]][Xbendera[i]]='B';
+                    }else if (Py-Ybendera[i]>4){
+                        map_b[Ybendera[i]][Xbendera[i]]=' ';
+                    }
+                }
+
+            }else if (Xbendera[i]>Px&&Ybendera[i]<Py){   // kuadron 1
+                if (Xbendera[i]-Px<4&&Py-Ybendera[i]<4){
+                    map_b[Ybendera[i]][Xbendera[i]]='B';
+                }else {
+                    map_b[Ybendera[i]][Xbendera[i]]=' ';
+                }
+
+            }else if (Xbendera[i]>Px&&Ybendera[i]>Py){    //kuadron 4
+                if (Xbendera[i]-Px<4&&Ybendera[i]-Py<4){
+                    map_b[Ybendera[i]][Xbendera[i]]='B';
+                }else {
+                    map_b[Ybendera[i]][Xbendera[i]]=' ';
+                }
+            }else if (Xbendera[i]<Px&&Ybendera[i]<Py){  // kuadron 2
+                if (Px-Xbendera[i]<4 && Py-Ybendera[i]<4 ){
+                    map_b[Ybendera[i]][Xbendera[i]]='B';
+                }else {
+                     map_b[Ybendera[i]][Xbendera[i]]=' ';
+                }
+            }else if (Xbendera[i]<Px&&Ybendera[i]>Py){
+                if (Px-Xbendera[i]<4&&Ybendera[i]-Py<4){
+                    map_b[Ybendera[i]][Xbendera[i]]='B';
+                }else {
+                     map_b[Ybendera[i]][Xbendera[i]]=' ';
+                }
+            }
+
+            //////////////////////////////
+             if (Ybendera[i]==Py){   // Y ==0
+                if (Xbendera[i]>Px){
+                    if (Xbendera[i]-Px<4){
+                        map_b[Ybendera[i]][Xbendera[i]]='B';
+                    }else if (Xk[i]-Px>4){
+                        map_b[Yk[i]][Xk[i]]=' ';
+                    }
+                }else if (Xk[i]<Px){
+                    if (Px-Xk[i]<4){
+                           map_b[Yk[i]][Xk[i]]='B';
+                    }else if (Px-Xk[i]>4){
+                         map_b[Yk[i]][Xk[i]]=' ';
+                    }
+
+                }
+
+            }else if (Xk[i]==Px){  //X==0
+                if (Yk[i]>Py){
+                    if (Yk[i]-Py<4){
+                        map_b[Yk[i]][Xk[i]]='B';
+                    }else if (Yk[i]-Py>4){
+                        map_b[Yk[i]][Xk[i]]=' ';
+                    }
+                }else if (Yk[i]<Py ){
+                    if (Py-Yk[i]<4){
+                        map_b[Yk[i]][Xk[i]]='B';
+                    }else if (Py-Yk[i]>4){
+                        map_b[Yk[i]][Xk[i]]=' ';
+                    }
+                }
+
+            }else if (Xk[i]>Px&&Yk[i]<Py){   // kuadron 1
+                if (Xk[i]-Px<4&&Py-Yk[i]<4){
+                    map_b[Yk[i]][Xk[i]]='B';
+                }else {
+                    map_b[Yk[i]][Xk[i]]=' ';
+                }
+
+            }else if (Xk[i]>Px&&Yk[i]>Py){    //kuadron 4
+                if (Xk[i]-Px<4&&Yk[i]-Py<4){
+                    map_b[Yk[i]][Xk[i]]='B';
+                }else {
+                    map_b[Yk[i]][Xk[i]]=' ';
+                }
+            }else if (Xk[i]<Px&&Yk[i]<Py){  // kuadron 2
+                if (Px-Xk[i]<4 && Py-Yk[i]<4 ){
+                    map_b[Yk[i]][Xk[i]]='B';
+                }else {
+                     map_b[Yk[i]][Xk[i]]=' ';
+                }
+            }else if (Xk[i]<Px&&Yk[i]>Py){
+                if (Px-Xk[i]<4&&Yk[i]-Py<4){
+                    map_b[Yk[i]][Xk[i]]='B';
+                }else {
+                     map_b[Yk[i]][Xk[i]]=' ';
+                }
+            }
+
+
+            //////////////////////////////////////////////////////
+             if (Ybendera[i]==Py){   // Y ==0
+                if (Xbendera[i]>Px){
+                    if (Xbendera[i]-Px<4){
+                        map_b[Ybendera[i]][Xbendera[i]]='B';
+                    }else if (Xbendera[i]-Px>4){
+                        map_b[Ym[i]][Xbendera[i]]=' ';
+                    }
+                }else if (Xbendera[i]<Px){
+                    if (Px-Xbendera[i]<4){
+                           map_b[Ym[i]][Xbendera[i]]='B';
+                    }else if (Px-Xbendera[i]>4){
+                         map_b[Ym[i]][Xbendera[i]]=' ';
+                    }
+
+                }
+
+            }else if (Xbendera[i]==Px){  //X==0
+                if (Ym[i]>Py){
+                    if (Ym[i]-Py<4){
+                        map_b[Ym[i]][Xbendera[i]]='B';
+                    }else if (Ym[i]-Py>4){
+                        map_b[Ym[i]][Xm[i]]=' ';
+                    }
+                }else if (Ym[i]<Py ){
+                    if (Py-Ym[i]<4){
+                        map_b[Ym[i]][Xm[i]]='B';
+                    }else if (Py-Ym[i]>4){
+                        map_b[Ym[i]][Xm[i]]=' ';
+                    }
+                }
+
+            }else if (Xm[i]>Px&&Ym[i]<Py){   // kuadron 1
+                if (Xm[i]-Px<4&&Py-Ym[i]<4){
+                    map_b[Ym[i]][Xm[i]]='B';
+                }else {
+                    map_b[Ym[i]][Xm[i]]=' ';
+                }
+
+            }else if (Xm[i]>Px&&Ym[i]>Py){    //kuadron 4
+                if (Xm[i]-Px<4&&Ym[i]-Py<4){
+                    map_b[Ym[i]][Xm[i]]='B';
+                }else {
+                    map_b[Ym[i]][Xm[i]]=' ';
+                }
+            }else if (Xm[i]<Px&&Ym[i]<Py){  // kuadron 2
+                if (Px-Xm[i]<4 && Py-Ym[i]<4 ){
+                    map_b[Ym[i]][Xm[i]]='B';
+                }else {
+                     map_b[Ym[i]][Xm[i]]=' ';
+                }
+            }else if (Xm[i]<Px&&Ym[i]>Py){
+                if (Px-Xm[i]<4&&Ym[i]-Py<4){
+                    map_b[Ym[i]][Xm[i]]='B';
+                }else {
+                     map_b[Ym[i]][Xm[i]]=' ';
+                }
+            }
+
+
+
+
+
+        }
+
+
+
+
+}
+
+
+
 int main()
 {
 srand(time(0));
 InitAwal();
 
 for(int i=0;i<3;i++){
+    do{
     Ym[i]=rand()%49+25;
     Xm[i]=rand()%49;
+    }while(map_b [Ym[i]][Xm[i]]!=' ');
+
+    do{
     Xk[i]=rand()%49;
     Yk[i]=rand()%49+25;
+    }while(map_b [Yk[i]][Xk[i]]!=' ');
+
+    do {
+    Xbendera[i]=rand()%49;
+    Ybendera[i]=rand()%49+25;
+    }while(map_b [Ybendera[i]][Xbendera[i]]!=' ');
 }
 
 Ysave=rand()%50+25;
@@ -322,8 +528,10 @@ map_b[Py][Px]='P';
         for(int i=0;i<3;i++){
             map_b[Ym[i]][Xm[i]]='M';
             map_b[Yk[i]][Xk[i]]='K';
+//            map_b[Ybendera[i]][Xbendera[i]]='B';
         }
 
+        Viewrange();
 
         map_b[51][20]='0';
         map_b[Ysave][Xsave]='S';

@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <vector>
+#include <sstream>
 
 using namespace std;
 int x=0;
@@ -14,7 +15,8 @@ int Py=30;
 char map_b[100][50];
 int Ym[3];
 int Xm[3];
-
+int Ysave;
+int Xsave;
 int Yk[3];
 int Xk[3];
 
@@ -23,8 +25,7 @@ int Xbendera[3];
 int YBatasFlag[3][8];
 int XBatasFlag[3][8];
 
-int Ysave;
-int Xsave;
+
 
 char Flag[3];
 char Key[3];
@@ -32,12 +33,16 @@ char Key[3];
 bool FlagCek[3];
 bool KeyCek[3];
 
+
+int Xgold[10];
+int Ygold[10];
+
 vector<int>Ymark;
 vector<int>Xmark;
 vector<bool>Xflag;
 struct inventory{
 
-    int Gold=5000;
+    int Gold=0;
     int Zen=0;
     bool key1=false;
     bool key2=false;
@@ -127,20 +132,22 @@ void CetakMap()
 
 
    cout<<player.Gold<<endl;
+   cout<<player.Zen<<endl;
     cout<<"Py   :" <<Py<<endl;
     cout<<"Px   :" <<Px<<endl;
 
     for (int i=0;i<3;i++){
         cout<<Yk[i]<<" "<<Xk[i]<<endl;
-//        cout<<Ym[i]<<" "<<Xm[i]<<endl;
-//
-//        cout<<Ybendera[i]<<" "<<Xbendera[i]<<endl;
-//        cout<<endl;
-    }
-    for (int i=0;i<3;i++){
-        cout<<KeyCek[i]<<endl;
-    }
+        cout<<Ybendera[i]<<" "<<Xbendera[i]<<endl;
 
+    }
+    cout<<"kunci 1:"<<player.key1<<endl;
+    cout<<"kunci 2:"<<player.key2<<endl;
+    cout<<"kunci 3:"<<player.key3<<endl;
+
+    cout<<"flag 1:"<<player.flag1<<endl;
+    cout<<"flag 2:"<<player.flag2<<endl;
+    cout<<"flag 3:"<<player.flag3<<endl;
 
 
 
@@ -207,81 +214,103 @@ void Move(char key)
     // Key
     if (key==' '){
         char menu;
-        for (int i=0;i<3;i++){
+        if (map_b[Py][Px+1]=='M'||map_b[Py][Px-1]=='M'||map_b[Py+1][Px]=='M'||map_b[Py-1][Px]=='M'){
 
-        if (i==0){
-            if (KeyCek[i]==true&&player.key1==false){
-                do {
-                cout<<"Welcome to Key "<<i+1<<endl;
-                cout<<"Buy key for 1000"<<endl;
+            cout<<"Mau tukar semua gold ke zeny ??"<<endl;
+            cout<<"1. Yes"<<endl;
+            cout<<"2. next time"<<endl;
+            cout<<"Select :";cin>>menu;
+                if(menu=='1'){
+                    if (player.Gold!=0){
+                    player.Zen+=player.Gold*50;
+                    player.Gold=0;
+                    }else if(player.Gold==0){
+                        cout<<"ups nggak punya gold"<<endl;
+                        Sleep(500);
+                    }
+                }
+
+
+        }else if (map_b[Py][Px+1]=='S'||map_b[Py][Px-1]=='S'||map_b[Py+1][Px]=='S'||map_b[Py-1][Px]=='S'){
+            cout<<"Save Berhhasil"<<endl;
+
+        }else if (map_b[Py][Px+1]=='K'||map_b[Py][Px-1]=='K'||map_b[Py+1][Px]=='K'||map_b[Py-1][Px]=='K'){
+            if ( (Px+1==Xk[0]||Px-1==Xk[0]||Py+1==Yk[0]||Py-1==Yk[0])&&player.key1==false ){
+                cout<<"Mau beli  kunci 1?? (300Zen)"<<endl;
                 cout<<"1. Yes"<<endl;
-                cout<<"2. exit"<<endl;
+                cout<<"2. Nah"<<endl;
                 cout<<"Select :";cin>>menu;
-                }while(menu!='1'&&menu!='2');
 
-                if (menu=='1'){
-                    player.Gold-=1000;
-                    player.key1=true;
+                    if (menu=='1'&&player.Zen>=300){
+                        player.key1=true;
+                        player.Zen-=300;
+                    }else if(player.Zen<300&&menu=='1'){
+                        cout<<"Zeny Kurang"<<endl;
+                        Sleep(1000);
+                    }
 
-                }
-            }else if (player.key1==true){
-                cout<<"sudah beli Kunci 1 "<<endl;
-                Sleep(1000);
+            }else if ( (Px+1==Xk[1]||Px-1==Xk[1]||Py+1==Yk[1]||Py-1==Yk[1])&&player.key2==false ){
+                cout<<"Mau beli  kunci 2?? (500Zen)"<<endl;
+                cout<<"1. Yes"<<endl;
+                cout<<"2. Nah"<<endl;
+                cout<<"Select :";cin>>menu;
+
+                    if (menu=='1'&&player.Zen>=500){
+                        player.key2=true;
+                        player.Zen-=500;
+                    }else if(player.Zen<500&&menu=='1'){
+                        cout<<"Zeny Kurang"<<endl;
+                        Sleep(1000);
+                    }
+
+            }else if ( (Px+1==Xk[2]||Px-1==Xk[2]||Py+1==Yk[2]||Py-1==Yk[2])&&player.key3==false ){
+                cout<<"Mau beli  kunci 3?? (800Zen)"<<endl;
+                cout<<"1. Yes"<<endl;
+                cout<<"2. Nah"<<endl;
+                cout<<"Select :";cin>>menu;
+
+                    if (menu=='1'&&player.Zen>=800){
+                        player.key3=true;
+                        player.Zen-=800;
+                    }else if(player.Zen<800&&menu=='1'){
+                        cout<<"Zeny Kurang"<<endl;
+                        Sleep(1000);
+                    }
+
             }
-        }else if(i==1){
 
-           if (KeyCek[i]==true&&player.key2==false){
-            do {
-                cout<<"Welcome to Key "<<i+1<<endl;
-                cout<<"Buy key for 1000"<<endl;
-                cout<<"1. Yes"<<endl;
-                cout<<"2. exit"<<endl;
-                cout<<"Select ";cin>>menu;
-                }while(menu!='1'&&menu!='2');
+        }else if (map_b[Py][Px+1]=='1'||map_b[Py][Px-1]=='1'||map_b[Py+1][Px]=='1'||map_b[Py-1][Px]=='1'){
+            player.flag1=true;
+            cout<<"Flag 1 Claimedd"<<endl;
+            Sleep(1000);
 
-                if (menu=='1'){
-                    player.Gold-=1000;
-                    player.key2=true;
-
-                }
-        }else if (player.key2==true) {
-            cout<<"sudah beli key 2"<<endl;
+        }else if (map_b[Py][Px+1]=='2'||map_b[Py][Px-1]=='2'||map_b[Py+1][Px]=='2'||map_b[Py-1][Px]=='2'){
+            player.flag2=true;
+            cout<<"Flag 2 Claimedd"<<endl;
+            Sleep(1000);
+        }else if (map_b[Py][Px+1]=='3'||map_b[Py][Px-1]=='3'||map_b[Py+1][Px]=='3'||map_b[Py-1][Px]=='3'){
+            player.flag3=true;
+            cout<<"Flag 3 Claimedd"<<endl;
             Sleep(1000);
         }
-        }else if(i==2){
-
-            if (KeyCek[i]==true){
-            do {
-                cout<<"Welcome to Key "<<i+1<<endl;
-                cout<<"Buy key for 1000"<<endl;
-                cout<<"1. Yes"<<endl;
-                cout<<"2. exit"<<endl;
-                cout<<"Select ";cin>>menu;
-                }while(menu!='1'&&menu!='2');
-
-                if (menu=='1'){
-                    player.Gold-=1000;
-                    player.key3=true;
-
-                }
-        }else if (player.key3==true) {
-            cout<<"sudah beli key 3"<<endl;
-            Sleep(1000);
-        }
-        }
-
-        }
 
 
 
-    }
 
 
 
-   else if (key=='x'){
+
+}else if (key=='x'){
         Ymark.push_back(Py);
         Xmark.push_back(Px);
         Xflag.push_back(true);
+        for (int i=0;i<10;i++){
+            if (Ygold[i]==Py&&Xgold[i]==Px){
+                player.Gold+=50;
+            }
+
+        }
+
 
 
 
@@ -602,7 +631,21 @@ void ViewBendera()
 }
 void Viewrange()
 {
+    if (player.flag1==true){
+        Flag[0]=' ';
+    }
+    if (player.flag2==true){
+        Flag[1]=' ';
+    }
+
+    if (player.flag3==true){
+        Flag[2]=' ';
+
+    }
+
+
     for (int i=0;i<3;i++){
+
             if (Ybendera[i]==Py){   // Y ==0
                 if (Xbendera[i]>Px){
                     if (Xbendera[i]-Px<4){
@@ -788,6 +831,75 @@ void Viewrange()
         }
 
 
+         if (Ysave==Py){   // Y ==0
+                if (Xsave>Px){
+                    if (Xsave-Px<4){
+                        map_b[Ysave][Xsave]='S';
+                    }else if (Xsave-Px>4){
+                        map_b[Ysave][Xsave]=' ';
+                    }
+                }else if (Xsave<Px){
+                    if (Px-Xsave<4){
+                           map_b[Ysave][Xsave]='S';
+                    }else if (Px-Xsave>4){
+                         map_b[Ysave][Xsave]=' ';
+                    }
+
+                }
+
+            }else if (Xsave==Px){  //X==0
+                if (Ysave>Py){
+                    if (Ysave-Py<4){
+                        map_b[Ysave][Xsave]='S';
+                    }else if (Ysave-Py>4){
+                        map_b[Ysave][Xsave]=' ';
+                    }
+                }else if (Ysave<Py ){
+                    if (Py-Ysave<4){
+
+                        map_b[Ysave][Xsave]='S';
+                    }else if (Py-Ysave>4){
+                        map_b[Ysave][Xsave]=' ';
+                    }
+                }
+
+            }else if (Xsave>Px&&Ysave<Py){   // kuadron 1
+                if (Xsave-Px<4&&Py-Ysave<4){
+                    map_b[Ysave][Xsave]='S';
+                }else {
+                    map_b[Ysave][Xsave]=' ';
+
+                }
+
+            }else if (Xsave>Px&&Ysave>Py){    //kuadron 4
+                if (Xsave-Px<4&&Ysave-Py<4){
+                    map_b[Ysave][Xsave]='S';
+                }else {
+                    map_b[Ysave][Xsave]=' ';
+                }
+            }else if (Xsave<Px&&Ysave<Py){  // kuadron 2
+                if (Px-Xsave<4 && Py-Ysave<4 ){
+                    map_b[Ysave][Xsave]='S';
+                }else {
+                     map_b[Ysave][Xsave]=' ';
+                }
+            }else if (Xsave<Px&&Ysave>Py){
+                if (Px-Xsave<4&&Ysave-Py<4){
+                    map_b[Ysave][Xsave]='S';
+                }else {
+                     map_b[Ysave][Xsave]=' ';
+                }
+            }
+
+
+
+
+
+
+
+
+
+
 
 
 }
@@ -857,13 +969,8 @@ void CekKey()
     }
 }
 
-
-
-
-int main()
+void InitKoorNPC()
 {
-srand(time(0));
-InitAwal();
 for(int i=0;i<3;i++){
     do{
     Ym[i]=rand()%49+25;
@@ -893,55 +1000,253 @@ for(int i=0;i<3;i++){
     FlagCek[i]=false;
     KeyCek[i]=false;
 }
-
 Ysave=rand()%50+25;
 Xsave=rand()%50;
 
 
+}
+void CetakGold()
+{
+    for (int i=0;i<10;i++){
 
-int Xgold[10];
-int Ygold[10];
+
+        if (Ygold[i]<Py){
+            if (Ygold[i]<y){
+                Ygold[i]=Py+5;
+                Xgold[i]=rand()%11+x;
+
+            }
+        }else if (Ygold[i]>Py){
+            if (Ygold[i]>y+11){
+                Ygold[i]=Py-5;
+                Xgold[i]=rand()%11+x;
+            }
+        }
+
+            if (Xgold[i]<Px){
+                if (Xgold[i]<x){
+                    Xgold[i]=Px+5;
+                    Ygold[i]=rand()%11+y;
+
+                }
+
+            }else if (Xgold[i]>Px){
+                if (Xgold[i]>x+11){
+                    Xgold[i]=Px-5;
+                    Ygold[i]=rand()%11+y;
+
+                }
+            }
 
 
+
+
+
+
+    }
+
+
+
+
+}
+
+int main()
+{
+srand(time(0));
 for (int i=0;i<10;i++){
     Xgold[i]=rand()%11+x;
     Ygold[i]=rand()%11+y;
 }
+InitAwal();
+InitXmark();
+InitBatasFlag();
+ViewBendera();
+Viewrange();
+BatasView();
+InitKoorNPC();
 
 
-map_b[Py][Px]='P';
 
+char menuawal;
+cout<<"1. NewGame"<<endl;
+cout<<"2. LoadGame"<<endl;
+cout<<"3. Annonymous"<<endl;
+cout<<"Select :";cin>>menuawal;
+string nama;
 
-    while(true){
+if (menuawal=='1'){
 
-        CetakMap();
+    cout<<"Masukan nama user baru :";
+    cin.ignore();
+    getline(cin,nama);
+    nama+=".txt";
+    ofstream New (nama.c_str());
+    if (New.is_open()){
 
-        char key=getch();
-        Move(key);
-
-        InitAwal();
-
-        for (int i=0;i<10;i++){
-            map_b[Ygold[i]][Xgold[i]]='*';
+        New<<y<<endl;
+        New<<x<<endl;
+        New<<Py<<endl;
+        New<<Px<<endl;
+        New<<Ysave<<endl;
+        New<<Xsave<<endl;
+        New<<player.Gold<<endl;
+        New<<player.Zen<<endl;
+        New<<player.key1<<endl;
+        New<<player.key2<<endl;
+        New<<player.key3<<endl;
+        New<<player.flag1<<endl;
+        New<<player.flag2<<endl;
+        New<<player.flag3<<endl;
+        for (int i=0;i<3;i++){
+            New<<Ym[i]<<endl;
+        }
+        for (int i=0;i<3;i++){
+            New<<Xm[i]<<endl;
         }
 
 
+        for (int i=0;i<3;i++){
+            New<<Yk[i]<<endl;
+        }
+
+        for (int i=0;i<3;i++){
+            New<<Xk[i]<<endl;
+        }
+
+        for (int i=0;i<3;i++){
+            New<<Ybendera[i]<<endl;
+        }
+
+        for (int i=0;i<3;i++){
+            New<<Xbendera[i]<<endl;
+        }
+
+
+
+    }
+    New.close();
+}else if(menuawal=='2'){// loqd
+
+    cin.ignore();
+    cout<<"Input User :";
+    getline(cin,nama);
+    nama+=".txt";
+
+    ifstream Load (nama.c_str());
+
+    string Data;
+    if (Load.is_open()){
+        getline(Load,Data);stringstream (Data)>>y;
+        getline(Load,Data);stringstream (Data)>>x;
+        getline(Load,Data);stringstream (Data)>>Py;
+        getline(Load,Data);stringstream (Data)>>Px;
+        getline(Load,Data);stringstream (Data)>>Ysave;
+        getline(Load,Data);stringstream (Data)>>Xsave;
+        getline(Load,Data);stringstream (Data)>>player.Gold;
+        getline(Load,Data);stringstream (Data)>>player.Zen;
+        getline(Load,Data);stringstream (Data)>>player.key1;
+        getline(Load,Data);stringstream (Data)>>player.key2;
+        getline(Load,Data);stringstream (Data)>>player.key3;
+        getline(Load,Data);stringstream (Data)>>player.flag1;
+        getline(Load,Data);stringstream (Data)>>player.flag2;
+        getline(Load,Data);stringstream (Data)>>player.flag3;
+        getline(Load,Data);stringstream (Data)>>Ym[0];
+        getline(Load,Data);stringstream (Data)>>Ym[1];
+        getline(Load,Data);stringstream (Data)>>Ym[2];
+        getline(Load,Data);stringstream (Data)>>Xm[0];
+        getline(Load,Data);stringstream (Data)>>Xm[1];
+        getline(Load,Data);stringstream (Data)>>Xm[2];
+        getline(Load,Data);stringstream (Data)>>Yk[0];
+        getline(Load,Data);stringstream (Data)>>Yk[1];
+        getline(Load,Data);stringstream (Data)>>Yk[2];
+        getline(Load,Data);stringstream (Data)>>Xk[0];
+        getline(Load,Data);stringstream (Data)>>Xk[1];
+        getline(Load,Data);stringstream (Data)>>Xk[2];
+        getline(Load,Data);stringstream (Data)>>Ybendera[0];
+        getline(Load,Data);stringstream (Data)>>Ybendera[1];
+        getline(Load,Data);stringstream (Data)>>Ybendera[2];
+        getline(Load,Data);stringstream (Data)>>Xbendera[0];
+        getline(Load,Data);stringstream (Data)>>Xbendera[1];
+        getline(Load,Data);stringstream (Data)>>Xbendera[2];
+
+
+
+        }
+
+    else {
+        system("cls");
+        cout<<"File tidak ada"<<endl;
+        return main();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+}else {
+
+}
+
+map_b[Py][Px]='P';
+int time=0;
+
+    while(player.flag1==false||player.flag2==false||player.flag3==false){
+
+        CetakMap();
+        cout<<time<<endl;
+    if (kbhit()){
+        char key=getch();
+        Move(key);
+    }
+        InitAwal();
+
+        if (time<100){
+        for (int i=0;i<10;i++){
+        map_b[Ygold[i]][Xgold[i]]=' ';
+        }
+        }else if (time<=150){
+         for (int i=0;i<10;i++){
+            map_b[Ygold[i]][Xgold[i]]='*';
+        }
+            if (time==150){
+                time=0;
+            }
+
+
+        }
+
+        CetakGold();
         InitXmark();
         InitBatasFlag();
         ViewBendera();
         Viewrange();
         BatasView();
-        CekKey();
-
-
-
-
-        map_b[Ysave][Xsave]='S';
         map_b[Py][Px]='P';
+        time++;
         system("cls");
 
 
 
     }
+
+    cout<<"You win"<<endl;
+
+
+
+
+
+
+
+
+
+
     return 0;
 }

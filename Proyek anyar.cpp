@@ -3,6 +3,7 @@
 #include <conio.h>
 #include <windows.h>
 #include <stdlib.h>
+#include <sstream>
 #include <time.h>
 #include <vector>
 
@@ -35,9 +36,39 @@ struct iventory{
     bool flag3=false;
 
 
-};
+}player;
 
-iventory player;
+void SAVE(string name)
+{
+    ofstream save;
+    save.open(name.c_str());
+    if(save.is_open())
+    {
+        save << name;
+        save << endl;
+        save << player.gold;
+        save << endl;
+        save << x;
+        save << y;
+    }   
+    save.close();
+}
+
+void LOAD(string name)
+{
+    ifstream load;
+    load.open(name.c_str());
+    if(load.is_open())
+    {
+        stringstream ss;
+        int number;
+        ss >> number;
+    }
+    else
+    {
+        cout << "File Tidak Ditemukan" << endl;
+    }
+}
 
 void InitAwal()
 {
@@ -47,11 +78,8 @@ void InitAwal()
         map_b[i][j]=' ';
         }
     }
-
-
-
-
 }
+
 void BatasView()
 {
      map_b[Py][Px-3]  ='|';
@@ -93,6 +121,7 @@ void CetakMap()
         }cout<<endl;
 
 }
+
 cout<<"------------"<<endl;
 
 cout<<endl;
@@ -108,11 +137,6 @@ cout<<endl;
         cout<<Ym[i]<<" "<<Xm[i]<<endl;
         cout<<Yk[i]<<" "<<Xk[i]<<endl;
     }
-
-
-
-
-
 
 //cout<<"Gold  :"<<player.Gold<<endl;
 //cout<<"Zen   :"<<player.Zen<<endl;
@@ -209,6 +233,7 @@ void Move(char key)
     }
 
 }
+
 void InitXmark()
 {
     for(int i=0;i<Ymark.size();i++){
@@ -293,9 +318,16 @@ void InitXmark()
 int main()
 {
 srand(time(0));
+cout << "Masukkan Nama : ";
+cin >> name;
+name = name + ".txt";
+cin.ignore();
+SAVE(name);
+LOAD(name);
 InitAwal();
 
-for(int i=0;i<3;i++){
+for(int i=0;i<3;i++)
+{
     Ym[i]=rand()%49+25;
     Xm[i]=rand()%49;
     Xk[i]=rand()%49;
